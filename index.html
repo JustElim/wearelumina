@@ -16,7 +16,6 @@
         }
 
         body {
-            /* Der Hintergrund der gesamten Seite unter dem Hero ist das dunkle Grau */
             background-color: #333333;
             color: #ffffff;
             overflow-x: hidden;
@@ -28,7 +27,7 @@
             justify-content: space-between;
             align-items: center;
             padding: 1.5rem 3rem;
-            background-color: #eef2f6; /* Das helle Grau-Blau aus dem Screenshot */
+            background-color: #eef2f6;
             color: #111;
         }
 
@@ -76,10 +75,17 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            /* Ein dunkler, stimmungsvoller Farbverlauf als Platzhalter für das Hintergrundbild */
-            background: linear-gradient(to bottom, rgba(30,35,30,0.8), rgba(20,20,20,0.9)), url('https://images.unsplash.com/photo-1504198458649-3128b932f49e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80') center/cover;
+            background: #222; /* Dunkler Start-Hintergrund */
+            background-size: cover;
+            background-position: center;
             text-align: center;
             position: relative;
+            cursor: pointer; /* Zeigt an, dass man klicken kann */
+            transition: background 0.3s ease;
+        }
+
+        .hero:hover .upload-hint {
+            opacity: 1;
         }
 
         .hero h1 {
@@ -88,6 +94,7 @@
             margin-bottom: 2rem;
             letter-spacing: -1px;
             color: #ffffff;
+            z-index: 2;
         }
 
         .hero-btn {
@@ -96,14 +103,20 @@
             color: #ffffff;
             text-decoration: none;
             border: 1px solid #ffffff;
-            border-radius: 30px; /* Abgerundete Ecken wie im Screenshot */
+            border-radius: 30px;
             font-size: 1rem;
             transition: all 0.3s ease;
+            z-index: 2;
+            pointer-events: none; /* Verhindert, dass der Button den Klick blockiert */
         }
 
-        .hero-btn:hover {
-            background-color: #ffffff;
-            color: #000000;
+        .upload-hint {
+            position: absolute;
+            bottom: 20px;
+            font-size: 0.8rem;
+            color: rgba(255,255,255,0.5);
+            opacity: 0.7;
+            transition: opacity 0.3s;
         }
 
         /* --- PRODUKTE BEREICH --- */
@@ -130,10 +143,8 @@
             flex-direction: column;
             align-items: center;
             position: relative;
-            cursor: pointer;
         }
 
-        /* Das "Ausverkauft" Badge */
         .badge {
             background-color: #f4f4f4;
             color: #333;
@@ -142,31 +153,42 @@
             font-size: 0.85rem;
             font-weight: 600;
             position: absolute;
-            top: -15px; /* Lässt das Badge leicht über dem Shirt schweben */
+            top: -15px;
             z-index: 10;
             box-shadow: 0 4px 10px rgba(0,0,0,0.2);
         }
 
-        /* Platzhalter für die T-Shirts (da wir die echten Grafiken noch nicht haben) */
         .shirt-placeholder {
             width: 100%;
             height: 300px;
-            /* Ein noch dunkleres Grau, um die Form eines T-Shirts anzudeuten */
             background-color: #222222; 
             border-radius: 10px;
             display: flex;
+            flex-direction: column;
             align-items: center;
             justify-content: center;
-            color: #555;
+            color: #777;
             font-size: 0.9rem;
-            transition: transform 0.3s ease;
+            cursor: pointer;
+            transition: transform 0.3s ease, background-color 0.3s ease;
+            text-align: center;
+            padding: 1rem;
+            border: 2px dashed #444;
         }
 
-        .product-card:hover .shirt-placeholder {
+        .shirt-placeholder:hover {
             transform: scale(1.02);
+            background-color: #2a2a2a;
+            border-color: #666;
+            color: #aaa;
         }
 
-        /* Responsive Design für kleinere Bildschirme */
+        .shirt-placeholder span {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Responsive Design */
         @media (max-width: 1024px) {
             .product-grid { grid-template-columns: repeat(2, 1fr); gap: 3rem 2rem; }
             .hero h1 { font-size: 3rem; }
@@ -198,10 +220,12 @@
         </div>
     </nav>
 
-    <header class="hero">
+    <header class="hero" id="hero-bg" onclick="document.getElementById('hero-upload').click()">
         <h1>WeAreLumina©</h1>
         <a href="#" class="hero-btn">Shop all</a>
+        <div class="upload-hint">Klicke hier, um ein Hintergrundbild hochzuladen</div>
     </header>
+    <input type="file" id="hero-upload" accept="image/*" style="display: none;" onchange="updateHero(event)">
 
     <section class="products-section">
         <h2>Produkte</h2>
@@ -209,26 +233,73 @@
             
             <div class="product-card">
                 <div class="badge">Ausverkauft</div>
-                <div class="shirt-placeholder">BORN AGAIN (Platzhalter)</div>
+                <div class="shirt-placeholder" onclick="document.getElementById('prod1').click()">
+                    <span>+</span>
+                    BORN AGAIN
+                </div>
+                <input type="file" id="prod1" accept="image/*" style="display: none;" onchange="updateProduct(event, this)">
             </div>
 
             <div class="product-card">
                 <div class="badge">Ausverkauft</div>
-                <div class="shirt-placeholder">DEAD TO THE WORLD (Platzhalter)</div>
+                <div class="shirt-placeholder" onclick="document.getElementById('prod2').click()">
+                    <span>+</span>
+                    DEAD TO THE WORLD
+                </div>
+                <input type="file" id="prod2" accept="image/*" style="display: none;" onchange="updateProduct(event, this)">
             </div>
 
             <div class="product-card">
                 <div class="badge">Ausverkauft</div>
-                <div class="shirt-placeholder">MADE BY CHRIST (Platzhalter)</div>
+                <div class="shirt-placeholder" onclick="document.getElementById('prod3').click()">
+                    <span>+</span>
+                    MADE BY CHRIST
+                </div>
+                <input type="file" id="prod3" accept="image/*" style="display: none;" onchange="updateProduct(event, this)">
             </div>
 
             <div class="product-card">
                 <div class="badge">Ausverkauft</div>
-                <div class="shirt-placeholder">BURNED CROSS (Platzhalter)</div>
+                <div class="shirt-placeholder" onclick="document.getElementById('prod4').click()">
+                    <span>+</span>
+                    BURNED CROSS
+                </div>
+                <input type="file" id="prod4" accept="image/*" style="display: none;" onchange="updateProduct(event, this)">
             </div>
 
         </div>
     </section>
 
+    <script>
+        // Funktion für das große Hintergrundbild
+        function updateHero(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const url = URL.createObjectURL(file);
+                const hero = document.getElementById('hero-bg');
+                // Legt einen leichten dunklen Filter über das Bild, damit die weiße Schrift lesbar bleibt
+                hero.style.backgroundImage = `linear-gradient(to bottom, rgba(30,35,30,0.6), rgba(20,20,20,0.8)), url('${url}')`;
+                hero.querySelector('.upload-hint').style.display = 'none';
+            }
+        }
+
+        // Funktion für die T-Shirt Platzhalter
+        function updateProduct(event, inputElement) {
+            const file = event.target.files[0];
+            if (file) {
+                const url = URL.createObjectURL(file);
+                const placeholder = inputElement.previousElementSibling;
+                
+                // Setzt das Bild als Hintergrund und entfernt den Rahmen/Text
+                placeholder.style.backgroundImage = `url('${url}')`;
+                placeholder.style.backgroundSize = 'contain'; // Verhindert, dass das Shirt abgeschnitten wird
+                placeholder.style.backgroundPosition = 'center';
+                placeholder.style.backgroundRepeat = 'no-repeat';
+                placeholder.style.backgroundColor = 'transparent';
+                placeholder.style.border = 'none';
+                placeholder.innerHTML = ''; // Löscht den "+" Text
+            }
+        }
+    </script>
 </body>
 </html>
