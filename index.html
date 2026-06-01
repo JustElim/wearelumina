@@ -13,7 +13,6 @@
             background-color: #2b317c; 
             color: #ffffff; 
             overflow-x: hidden; 
-            /* Das schwebende Platzhalter-Bild wurde hier entfernt */
         }
 
         /* --- Navbar --- */
@@ -33,7 +32,7 @@
         .icons { font-size: 1.2rem; display: flex; gap: 1.5rem; color: #aeb2d8; cursor: pointer; }
 
         /* --- Views (Zum Ein- und Ausblenden) --- */
-        .view-section { display: none; padding-top: 100px; /* Platz für Navbar */ }
+        .view-section { display: none; padding-top: 100px; padding-bottom: 4rem; }
         .view-section.active { display: block; animation: fadeIn 0.5s ease-in-out; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
@@ -43,13 +42,13 @@
         .hero p { font-size: 1.2rem; color: #aeb2d8; margin-bottom: 2.5rem; text-transform: uppercase; letter-spacing: 4px; }
         .hero-btn { padding: 1rem 3rem; background: #ffffff; color: #1a1e52; text-decoration: none; border-radius: 40px; font-weight: 700; }
         
-        .product-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 3rem; max-width: 1000px; margin: 2rem auto 6rem auto; padding: 0 2rem; }
+        .product-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 3rem; max-width: 1000px; margin: 2rem auto 2rem auto; padding: 0 2rem; }
         .product-card { display: flex; flex-direction: column; align-items: center; background-color: rgba(26, 30, 82, 0.5); padding: 2rem; border-radius: 20px; position: relative; }
         .product-id { position: absolute; top: 1rem; left: 1.5rem; font-size: 1.2rem; font-weight: bold; color: #aeb2d8; opacity: 0.7; }
         .badge { background-color: #ffffff; color: #1a1e52; padding: 0.4rem 1.2rem; border-radius: 20px; font-size: 0.75rem; font-weight: 700; margin-bottom: 1rem; align-self: flex-end; }
         .product-image { width: 100%; height: 350px; background-size: contain; background-position: center; background-repeat: no-repeat; }
 
-        /* --- Ansicht 2: Kollektionen (Slider + Story) --- */
+        /* --- Ansicht 2: Kollektionen (Slider) --- */
         .collections-header { text-align: center; margin-bottom: 2rem; }
         .collections-header h2 { font-size: 3rem; font-weight: 800; letter-spacing: -1px; }
 
@@ -60,10 +59,50 @@
         .slider-card { flex-grow: 1; max-width: 500px; background-color: rgba(26, 30, 82, 0.8); padding: 3rem; border-radius: 20px; position: relative; text-align: center; }
         .slider-card .product-image { height: 400px; background-size: contain; background-position: center; background-repeat: no-repeat;}
 
-        /* Story Section unter dem Slider */
-        .story-section { max-width: 800px; margin: 6rem auto; text-align: center; padding: 0 2rem; }
-        .story-section h2 { font-size: 2.5rem; font-weight: 800; margin-bottom: 1.5rem; display: inline-block; border-bottom: 4px solid #e52b20; padding-bottom: 0.5rem; transform: skewX(-10deg); }
-        .story-section p { font-size: 1.1rem; line-height: 1.8; color: #aeb2d8; margin-bottom: 1rem; }
+        /* --- Ansicht 3: Unsere Story (Aktualisiert) --- */
+        .story-wrapper { min-height: 80vh; display: flex; flex-direction: column; align-items: center; justify-content: flex-start; padding-top: 4rem; }
+        .story-section { max-width: 800px; text-align: center; padding: 0 2rem; }
+        .story-section h2 { font-size: 3.5rem; font-weight: 800; margin-bottom: 2rem; display: inline-block; border-bottom: 4px solid #e52b20; padding-bottom: 0.5rem; transform: skewX(-10deg); }
+        .story-section p { font-size: 1.1rem; line-height: 1.8; color: #aeb2d8; margin-bottom: 1.5rem; text-align: justify; }
+
+        /* Scrapbook Bild-Styling mit Klebestreifen-Effekt */
+        .story-image-container {
+            position: relative;
+            display: inline-block;
+            margin-top: 4rem;
+            margin-bottom: 4rem;
+        }
+
+        .story-image {
+            max-width: 100%;
+            height: auto;
+            border: 15px solid #ffffff; /* Weißer Fotorahmen */
+            box-shadow: 0 8px 25px rgba(0,0,0,0.5);
+            transform: rotate(2deg); /* Leichte Drehung wie aufgeklebt */
+            display: block;
+        }
+
+        /* Die schwarzen "Tape" Streifen */
+        .tape {
+            position: absolute;
+            background-color: #111;
+            width: 80px;
+            height: 25px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+            z-index: 10;
+        }
+
+        .tape-top-left {
+            top: -15px;
+            left: -25px;
+            transform: rotate(-45deg);
+        }
+
+        .tape-bottom-right {
+            bottom: -15px;
+            right: -25px;
+            transform: rotate(-45deg);
+        }
 
         /* --- Responsive Design --- */
         @media (max-width: 768px) {
@@ -72,11 +111,15 @@
             .hero h1 { font-size: 3rem; }
             .slider-container { flex-direction: column; }
             .slider-btn { transform: rotate(90deg); margin: 1rem 0; }
+            .story-section h2 { font-size: 2.5rem; }
+            .story-image { border-width: 8px; }
+            .tape { width: 50px; height: 15px; }
         }
     </style>
 </head>
 <body>
 
+    <!-- Navigation -->
     <nav class="navbar">
         <div class="nav-left">
             <div class="anime-logo" id="logo-btn">
@@ -86,7 +129,7 @@
             <ul class="nav-links">
                 <li><a id="nav-neuheiten" class="active">Neuheiten</a></li>
                 <li><a id="nav-kollektionen">Kollektionen</a></li>
-                <li><a href="#">Unsere Story</a></li>
+                <li><a id="nav-story">Unsere Story</a></li>
             </ul>
         </div>
         <div class="icons">
@@ -94,6 +137,7 @@
         </div>
     </nav>
 
+    <!-- ANSICHT 1: HOME / NEUHEITEN -->
     <div id="view-neuheiten" class="view-section active">
         <header class="hero">
             <h1>WE ARE<br>LUMINA.</h1>
@@ -121,6 +165,7 @@
         </section>
     </div>
 
+    <!-- ANSICHT 2: KOLLEKTIONEN (Slider) -->
     <div id="view-kollektionen" class="view-section">
         <div class="collections-header">
             <h2>Kollektionen</h2>
@@ -137,28 +182,54 @@
 
             <button class="slider-btn" onclick="nextSlide()">&#9654;</button>
         </div>
+    </div>
 
-        <div class="story-section">
-            <h2>Story</h2>
-            <p>Lumina entstand aus der Idee, dass Streetwear mehr sein kann als nur Stoff. Es ist eine Leinwand für Licht in der Dunkelheit.</p>
-            <p>Jedes Kleidungsstück erzählt die Geschichte von Überwindung und Stärke. Wir designen für diejenigen, die auffallen wollen, nicht durch Lärm, sondern durch Präsenz.</p>
+    <!-- ANSICHT 3: UNSERE STORY (Mit echtem Text & Bild) -->
+    <div id="view-story" class="view-section">
+        <div class="story-wrapper">
+            <div class="story-section">
+                <h2>Unsere Story</h2>
+                <p>
+                    Schon während meiner Schulzeit spürte ich den starken Drang, mich in eine kreative Richtung zu entwickeln. Nach meinem Abschluss und bestärkt durch die wertvolle Empfehlung einer Lehrkraft, bewarb ich mich voller Motivation an einer Modeschule. 
+                </p>
+                <p>
+                    Doch der Weg verlief etwas anders als geplant: Ich landete schließlich an einer Kunstschule. Dort lag der Fokus stark auf der reinen Kunst und weit weniger auf Textilien, wie ich es mir ursprünglich erhofft hatte. Obwohl dieser Weg auf den ersten Blick wie ein Widerspruch zu meinen Plänen wirkte, habe ich dort unglaublich viel gelernt. 
+                </p>
+                <p>
+                    Trotzdem habe ich gemerkt, dass diese ursprüngliche Vision – Mode und Kunst miteinander zu verbinden – immer in meinem Herzen geblieben ist. Deshalb bin ich nun an dem Punkt, diesem Traum endlich eine echte Chance zu geben. WEARELUMINA ist das Resultat aus dieser ungebändigten kreativen Energie.
+                </p>
+
+                <!-- Das Bild im Scrapbook-Style -->
+                <div class="story-image-container">
+                    <div class="tape tape-top-left"></div>
+                    <!-- Hier wird das Bild geladen (ich habe den Dateinamen aus deinem Upload eingesetzt) -->
+                    <img src="image_0acc4d.jpg" alt="Idee Nr. 1 - Pelikan Skizze" class="story-image">
+                    <div class="tape tape-bottom-right"></div>
+                </div>
+            </div>
         </div>
     </div>
 
+    <!-- JavaScript für Interaktion -->
     <script>
         // --- Navigation Logic ---
         const navNeuheiten = document.getElementById('nav-neuheiten');
         const navKollektionen = document.getElementById('nav-kollektionen');
+        const navStory = document.getElementById('nav-story');
         const logoBtn = document.getElementById('logo-btn');
         
         const viewNeuheiten = document.getElementById('view-neuheiten');
         const viewKollektionen = document.getElementById('view-kollektionen');
+        const viewStory = document.getElementById('view-story');
 
         function showView(viewName) {
             viewNeuheiten.classList.remove('active');
             viewKollektionen.classList.remove('active');
+            viewStory.classList.remove('active');
+            
             navNeuheiten.classList.remove('active');
             navKollektionen.classList.remove('active');
+            navStory.classList.remove('active');
 
             if (viewName === 'neuheiten') {
                 viewNeuheiten.classList.add('active');
@@ -166,6 +237,9 @@
             } else if (viewName === 'kollektionen') {
                 viewKollektionen.classList.add('active');
                 navKollektionen.classList.add('active');
+            } else if (viewName === 'story') {
+                viewStory.classList.add('active');
+                navStory.classList.add('active');
             }
             window.scrollTo(0, 0); 
         }
@@ -173,7 +247,7 @@
         navNeuheiten.addEventListener('click', () => showView('neuheiten'));
         logoBtn.addEventListener('click', () => showView('neuheiten')); 
         navKollektionen.addEventListener('click', () => showView('kollektionen'));
-
+        navStory.addEventListener('click', () => showView('story'));
 
         // --- Slider Logic ---
         const products = [
