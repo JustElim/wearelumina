@@ -7,246 +7,65 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
     
     <style>
-        /* --- GRUNDEINSTELLUNGEN --- */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Inter', sans-serif;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
 
         body {
-            /* Das Astro-Boy Retro-Blau */
             background-color: #2b317c; 
             color: #ffffff;
             overflow-x: hidden;
-            /* Ein CSS-Trick für Retro-Sterne im Hintergrund */
-            background-image: 
-                radial-gradient(2px 2px at 20px 30px, #ffffff, rgba(0,0,0,0)),
-                radial-gradient(2px 2px at 40px 70px, #ffffff, rgba(0,0,0,0)),
-                radial-gradient(3px 3px at 90px 40px, #ffffff, rgba(0,0,0,0)),
-                radial-gradient(2px 2px at 160px 120px, #ffffff, rgba(0,0,0,0)),
-                radial-gradient(3px 3px at 250px 80px, #ffffff, rgba(0,0,0,0)),
-                radial-gradient(2px 2px at 300px 180px, #ffffff, rgba(0,0,0,0));
-            background-repeat: repeat;
-            background-size: 350px 250px;
+            /* Hier wird dein schwebendes Element als Hintergrund eingebunden */
+            background-image: url('DEIN_SCHWEBENDES_ELEMENT.png');
+            background-repeat: no-repeat;
+            background-position: center 20%;
+            background-size: 30%; /* Passe die Größe hier an */
         }
 
-        /* --- NAVIGATION --- */
         .navbar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 1.2rem 3rem;
-            /* Etwas dunkleres Blau für die obere Leiste */
-            background-color: #1a1e52; 
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 1.2rem 3rem; background-color: #1a1e52; 
             box-shadow: 0 4px 20px rgba(0,0,0,0.2);
-            position: relative;
-            z-index: 100;
+            position: relative; z-index: 100;
         }
 
-        .nav-left {
-            display: flex;
-            align-items: center;
-            gap: 3rem;
-        }
+        .nav-left { display: flex; align-items: center; gap: 3rem; }
+        .anime-logo { color: #e52b20; transform: skewX(-12deg); font-family: 'Arial Black', sans-serif; cursor: pointer; }
+        .anime-logo .ja { font-size: 1.8rem; font-weight: 900; }
+        .anime-logo .en { font-size: 0.9rem; letter-spacing: 4px; color: #ffffff; }
 
-        /* Das neue Anime-Logo */
-        .anime-logo {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            color: #e52b20; /* Das klassische Cartoon-Rot */
-            transform: skewX(-12deg); /* Die Abschrägung */
-            font-family: 'Arial Black', Impact, sans-serif;
-            line-height: 0.95;
-            cursor: pointer;
-            text-shadow: 2px 2px 0px rgba(0,0,0,0.3);
-            transition: transform 0.3s ease;
-        }
+        .nav-links { display: flex; list-style: none; gap: 2rem; }
+        .nav-links a { text-decoration: none; color: #aeb2d8; font-size: 0.85rem; font-weight: 600; text-transform: uppercase; }
+        .icons { font-size: 1.2rem; display: flex; gap: 1.5rem; color: #aeb2d8; }
 
-        .anime-logo:hover {
-            transform: skewX(-12deg) scale(1.05);
-        }
-
-        .anime-logo .ja {
-            font-size: 1.8rem;
-            letter-spacing: 2px;
-            font-weight: 900;
-        }
-
-        .anime-logo .en {
-            font-size: 0.9rem;
-            letter-spacing: 4px;
-            color: #ffffff; /* Weiß als Kontrast */
-        }
-
-        .nav-links {
-            display: flex;
-            list-style: none;
-            gap: 2rem;
-        }
-
-        .nav-links a {
-            text-decoration: none;
-            color: #aeb2d8;
-            font-size: 0.85rem;
-            font-weight: 600;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-            transition: color 0.3s ease;
-        }
-
-        .nav-links a:hover {
-            color: #ffffff;
-        }
-
-        .icons {
-            font-size: 1.2rem;
-            display: flex;
-            gap: 1.5rem;
-            cursor: pointer;
-            color: #aeb2d8;
-        }
-        
-        .icons span:hover {
-            color: #ffffff;
-        }
-
-        /* --- HERO BEREICH --- */
         .hero {
-            height: 50vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            position: relative;
-            cursor: pointer;
-            transition: background 0.3s ease;
+            height: 60vh; display: flex; flex-direction: column;
+            align-items: center; justify-content: center; text-align: center;
         }
 
-        .hero h1 {
-            font-size: 4rem;
-            font-weight: 300;
-            margin-bottom: 1rem;
-            letter-spacing: 2px;
-            color: #ffffff;
-            z-index: 2;
-            text-shadow: 0 4px 20px rgba(0,0,0,0.5);
-        }
-
-        .hero p {
-            font-size: 1rem;
-            letter-spacing: 2px;
-            color: #aeb2d8;
-            margin-bottom: 2.5rem;
-            text-transform: uppercase;
-            z-index: 2;
-        }
-
+        .hero h1 { font-size: 4rem; font-weight: 300; margin-bottom: 1rem; }
+        .hero p { font-size: 1rem; color: #aeb2d8; margin-bottom: 2.5rem; text-transform: uppercase; }
         .hero-btn {
-            padding: 1rem 3rem;
-            background: #ffffff;
-            color: #1a1e52;
-            text-decoration: none;
-            border-radius: 40px;
-            font-size: 0.9rem;
-            font-weight: 700;
-            letter-spacing: 1px;
-            transition: all 0.3s ease;
-            z-index: 2;
-            pointer-events: none;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+            padding: 1rem 3rem; background: #ffffff; color: #1a1e52;
+            text-decoration: none; border-radius: 40px; font-weight: 700;
         }
 
-        .hero:hover .upload-hint { opacity: 1; }
-
-        .upload-hint {
-            position: absolute;
-            bottom: 20px;
-            font-size: 0.8rem;
-            color: rgba(255,255,255,0.5);
-            opacity: 0.3;
-            transition: opacity 0.3s;
-        }
-
-        /* --- PRODUKTE BEREICH --- */
-        .products-section {
-            padding: 2rem 3rem 6rem 3rem;
-        }
-
-        .product-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 2.5rem;
-        }
-
-        .product-card {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            position: relative;
-        }
-
+        .products-section { padding: 2rem 3rem 6rem 3rem; }
+        .product-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 4rem; max-width: 900px; margin: 0 auto; }
+        .product-card { display: flex; flex-direction: column; align-items: center; }
+        
         .badge {
-            background-color: #ffffff;
-            color: #1a1e52;
-            padding: 0.4rem 1.2rem;
-            border-radius: 20px;
-            font-size: 0.75rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            position: absolute;
-            top: -15px;
-            z-index: 10;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            background-color: #ffffff; color: #1a1e52; padding: 0.4rem 1.2rem;
+            border-radius: 20px; font-size: 0.75rem; font-weight: 700; margin-bottom: 1rem;
         }
 
-        .shirt-placeholder {
-            width: 100%;
-            height: 350px;
-            /* Ein sanfter, halbtransparenter Hintergrund für die Platzhalter */
-            background-color: rgba(255, 255, 255, 0.05); 
-            border-radius: 12px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            color: #aeb2d8;
-            font-size: 0.9rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-align: center;
-            padding: 1rem;
-            border: 1px dashed rgba(255, 255, 255, 0.2);
-        }
-
-        .shirt-placeholder:hover {
-            transform: translateY(-5px);
-            background-color: rgba(255, 255, 255, 0.1);
-            border-color: rgba(255, 255, 255, 0.5);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-        }
-
-        .shirt-placeholder span {
-            font-size: 2rem;
-            margin-bottom: 0.5rem;
-            font-weight: 300;
-        }
-
-        /* Responsive Design */
-        @media (max-width: 1024px) {
-            .product-grid { grid-template-columns: repeat(2, 1fr); gap: 3rem 2rem; }
-            .hero h1 { font-size: 3rem; }
+        .product-image {
+            width: 100%; height: 400px; background-size: contain;
+            background-position: center; background-repeat: no-repeat;
         }
 
         @media (max-width: 768px) {
-            .navbar { flex-direction: column; gap: 1rem; padding: 1rem; }
             .nav-links { display: none; }
             .product-grid { grid-template-columns: 1fr; }
-            .hero h1 { font-size: 2rem; }
+            body { background-size: 60%; }
         }
     </style>
 </head>
@@ -258,7 +77,6 @@
                 <span class="ja">ウィーアールミナ</span>
                 <span class="en">WEARELUMINA</span>
             </div>
-            
             <ul class="nav-links">
                 <li><a href="#">Neuheiten</a></li>
                 <li><a href="#">Kollektionen</a></li>
@@ -266,85 +84,28 @@
             </ul>
         </div>
         <div class="icons">
-            <span>🔍</span> 
-            <span>👤</span> 
-            <span>🛒</span>
+            <span>🔍</span> <span>👤</span> <span>🛒</span>
         </div>
     </nav>
 
-    <header class="hero" id="hero-bg" onclick="document.getElementById('hero-upload').click()">
+    <header class="hero">
         <h1>STREETWEAR,<br>DIE GLAUBEN TRÄGT.</h1>
         <p>WO GLAUBE AUF DEN HIMMEL TRIFFT. THE CLOUDY COLLECTIVE '24.</p>
         <a href="#" class="hero-btn">SHOP THE DROP</a>
-        <div class="upload-hint">Klicke hier, um ein eigenes Hintergrundbild hochzuladen</div>
     </header>
-    <input type="file" id="hero-upload" accept="image/*" style="display: none;" onchange="updateHero(event)">
 
     <section class="products-section">
         <div class="product-grid">
-            
             <div class="product-card">
                 <div class="badge">Ausverkauft</div>
-                <div class="shirt-placeholder" onclick="document.getElementById('prod1').click()">
-                    <span>+</span> Design 1 hochladen
-                </div>
-                <input type="file" id="prod1" accept="image/*" style="display: none;" onchange="updateProduct(event, this)">
+                <div class="product-image" style="background-image: url('DEIN_SHIRT_1.png');"></div>
             </div>
-
             <div class="product-card">
                 <div class="badge">Ausverkauft</div>
-                <div class="shirt-placeholder" onclick="document.getElementById('prod2').click()">
-                    <span>+</span> Design 2 hochladen
-                </div>
-                <input type="file" id="prod2" accept="image/*" style="display: none;" onchange="updateProduct(event, this)">
+                <div class="product-image" style="background-image: url('DEIN_SHIRT_2.png');"></div>
             </div>
-
-            <div class="product-card">
-                <div class="badge">Ausverkauft</div>
-                <div class="shirt-placeholder" onclick="document.getElementById('prod3').click()">
-                    <span>+</span> Design 3 hochladen
-                </div>
-                <input type="file" id="prod3" accept="image/*" style="display: none;" onchange="updateProduct(event, this)">
-            </div>
-
-            <div class="product-card">
-                <div class="badge">Ausverkauft</div>
-                <div class="shirt-placeholder" onclick="document.getElementById('prod4').click()">
-                    <span>+</span> Design 4 hochladen
-                </div>
-                <input type="file" id="prod4" accept="image/*" style="display: none;" onchange="updateProduct(event, this)">
-            </div>
-
         </div>
     </section>
 
-    <script>
-        function updateHero(event) {
-            const file = event.target.files[0];
-            if (file) {
-                const url = URL.createObjectURL(file);
-                const hero = document.getElementById('hero-bg');
-                hero.style.backgroundImage = `url('${url}')`;
-                hero.style.backgroundSize = 'cover';
-                hero.style.backgroundPosition = 'center';
-                hero.querySelector('.upload-hint').style.display = 'none';
-            }
-        }
-
-        function updateProduct(event, inputElement) {
-            const file = event.target.files[0];
-            if (file) {
-                const url = URL.createObjectURL(file);
-                const placeholder = inputElement.previousElementSibling;
-                placeholder.style.backgroundImage = `url('${url}')`;
-                placeholder.style.backgroundSize = 'contain';
-                placeholder.style.backgroundPosition = 'center';
-                placeholder.style.backgroundRepeat = 'no-repeat';
-                placeholder.style.backgroundColor = 'transparent';
-                placeholder.style.border = 'none';
-                placeholder.innerHTML = ''; 
-            }
-        }
-    </script>
 </body>
 </html>
