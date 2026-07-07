@@ -10,8 +10,8 @@
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
         
         body { 
-            background-color: #000000; /* Reines Schwarz */
-            color: #ffffff; /* Reines Weiß */
+            background-color: #000000; 
+            color: #ffffff; 
             overflow-x: hidden; 
             position: relative;
         }
@@ -23,26 +23,23 @@
             left: 0;
             width: 100vw;
             height: 100vh;
-            z-index: 1; /* Liegt direkt über dem schwarzen Body-Hintergrund */
+            z-index: 1; 
             overflow: hidden;
-            pointer-events: none; /* Blockiert keine Klicks auf der Seite */
+            pointer-events: none; 
         }
 
         .bubble {
             position: absolute;
-            background-image: url('-24.jpg'); /* Dein originales Bild */
+            /* NEU: Nutzt jetzt dein neues Bild! */
+            background-image: url('image_a3b6e0.jpg'); 
             background-repeat: no-repeat;
             
-            /* Macht das Schwarz im Bild magisch unsichtbar */
             mix-blend-mode: screen; 
-            
-            /* Der verpixelte, verträumte Retro-Look */
             image-rendering: pixelated; 
-            opacity: 0.35; /* Subtil im Hintergrund, lenkt nicht ab */
+            opacity: 0.35; 
             border-radius: 50%;
         }
 
-        /* Super langsame, elegante Schwebebewegung an Ort und Stelle */
         @keyframes gentleFloat {
             0%, 100% { transform: translate(0, 0) scale(1); }
             33% { transform: translate(20px, -20px) scale(1.03); }
@@ -58,7 +55,7 @@
             -webkit-backdrop-filter: blur(12px);
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
             position: fixed; width: 100%; top: 0; 
-            z-index: 1000; /* Ganz oben */
+            z-index: 1000; 
         }
         .nav-left { display: flex; align-items: center; gap: 3rem; }
         
@@ -95,7 +92,7 @@
             padding-top: 120px; 
             padding-bottom: 4rem; 
             position: relative; 
-            z-index: 10; /* Inhalt liegt sicher über den Blasen */
+            z-index: 10; 
         }
         .view-section.active { display: block; animation: fadeIn 0.5s ease-in-out; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
@@ -188,8 +185,10 @@
 </head>
 <body>
 
+    <!-- Hintergrund-Container für die echten Bild-Seifenblasen -->
     <div id="bubble-container"></div>
 
+    <!-- Navigation -->
     <nav class="navbar">
         <div class="nav-left">
             <div class="anime-logo" id="logo-btn">
@@ -207,6 +206,7 @@
         </div>
     </nav>
 
+    <!-- ANSICHT 1: HOME / NEUHEITEN -->
     <div id="view-neuheiten" class="view-section active">
         <header class="hero">
             <h1>WE ARE LUMINA</h1>
@@ -234,6 +234,7 @@
         </section>
     </div>
 
+    <!-- ANSICHT 2: KOLLEKTIONEN (Slider) -->
     <div id="view-kollektionen" class="view-section">
         <div class="collections-header">
             <h2>Collections</h2>
@@ -252,6 +253,7 @@
         </div>
     </div>
 
+    <!-- ANSICHT 3: UNSERE STORY & VISION -->
     <div id="view-story" class="view-section">
         <div class="story-wrapper">
             <div class="story-section">
@@ -277,6 +279,7 @@
                     Being a light does not mean being perfect. Rather, it means having the courage to make yourself visible with all your weaknesses, flaws, and blind spots. True light shines brightest when we authentically embrace ourselves and have the courage to be real.
                 </p>
 
+                <!-- Das Bild im Scrapbook-Style -->
                 <div class="story-image-container">
                     <div class="tape tape-top-left"></div>
                     <img src="image_0acc4d.jpg" alt="Idea No. 1 - Sketch" class="story-image">
@@ -286,18 +289,18 @@
         </div>
     </div>
 
+    <!-- JavaScript für Extraktion und Generierung -->
     <script>
         const bubbleContainer = document.getElementById('bubble-container');
-        const bubbleCount = 10; // Perfekte Anzahl: Schön verteilt, nicht überladen
+        const bubbleCount = 10; 
 
-        // Verschiedene Zoom-Faktoren und Ausschnitte aus deinem Bild, 
-        // um immer andere Blasen einzufangen
+        // Angepasst für das neue, dichtere Bild "image_a3b6e0.jpg"
         const bubbleCrops = [
-            { bgPos: '45% 33%', bgSize: '400%' }, 
-            { bgPos: '22% 10%', bgSize: '500%' }, 
-            { bgPos: '78% 12%', bgSize: '600%' }, 
-            { bgPos: '30% 73%', bgSize: '450%' }, 
-            { bgPos: '68% 85%', bgSize: '550%' }  
+            { bgPos: '10% 20%', bgSize: '250%' }, 
+            { bgPos: '80% 80%', bgSize: '300%' }, 
+            { bgPos: '50% 50%', bgSize: '250%' }, 
+            { bgPos: '20% 80%', bgSize: '350%' }, 
+            { bgPos: '80% 20%', bgSize: '300%' }  
         ];
 
         for (let i = 0; i < bubbleCount; i++) {
@@ -306,7 +309,6 @@
             
             let crop = bubbleCrops[Math.floor(Math.random() * bubbleCrops.length)];
             
-            // Mittelgroße Dimensionen (70px bis 130px) für perfekten Look
             let size = Math.random() * 60 + 70; 
             bubble.style.width = size + 'px';
             bubble.style.height = size + 'px';
@@ -314,12 +316,10 @@
             bubble.style.backgroundSize = crop.bgSize;
             bubble.style.backgroundPosition = crop.bgPos;
             
-            // Gleichmäßige Verteilung über den gesamten Viewport
             bubble.style.left = Math.random() * 85 + 'vw';
             bubble.style.top = Math.random() * 85 + 'vh';
             
-            // Extrem verlangsamte Animation (schwebt sanft hin und her)
-            let animationDuration = Math.random() * 15 + 25; // 25 bis 40 Sekunden pro Schleife
+            let animationDuration = Math.random() * 15 + 25; 
             let animationDelay = Math.random() * -30; 
             bubble.style.animation = `gentleFloat ${animationDuration}s infinite ease-in-out`;
             bubble.style.animationDelay = `${animationDelay}s`;
