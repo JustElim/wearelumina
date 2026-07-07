@@ -11,54 +11,54 @@
         
         body { 
             background-color: #000000; /* Reines Schwarz */
-            color: #ffffff; /* Reines Weiß */
+            color: #ffffff; 
             overflow-x: hidden; 
-            position: relative;
         }
 
-        /* --- Dynamischer 1-zu-1 Seifenblasen-Hintergrund --- */
+        /* --- Dynamischer & Verpixelter Seifenblasen-Hintergrund --- */
         #bubble-container {
             position: fixed;
             top: 0;
             left: 0;
             width: 100vw;
             height: 100vh;
-            z-index: 1; /* Liegt direkt über dem schwarzen Body-Hintergrund */
+            z-index: 0; /* Bleibt sicher im Hintergrund */
             overflow: hidden;
-            pointer-events: none; /* Blockiert keine Klicks auf der Seite */
+            pointer-events: none; /* Blockiert keine Klicks */
         }
 
         .bubble {
             position: absolute;
-            background-image: url('-24.jpg'); /* Dein originales Bild */
+            background-image: url('-24.jpg'); 
             background-repeat: no-repeat;
             
-            /* Macht das Schwarz im Bild magisch unsichtbar */
+            /* Der Magic-Trick: Macht das Schwarz im Bild unsichtbar */
             mix-blend-mode: screen; 
             
-            /* Der verpixelte, verträumte Retro-Look */
-            image-rendering: pixelated; 
-            opacity: 0.35; /* Subtil im Hintergrund, lenkt nicht ab */
+            /* Die Ästhetik: Verpixelt und verträumt subtil */
+            image-rendering: pixelated; /* Verstärkt den retro Pixel-Look */
+            opacity: 0.35; /* Macht sie transparent, damit sie nicht ablenken */
             border-radius: 50%;
         }
 
-        /* Super langsame, elegante Schwebebewegung an Ort und Stelle */
-        @keyframes gentleFloat {
-            0%, 100% { transform: translate(0, 0) scale(1); }
-            33% { transform: translate(20px, -20px) scale(1.03); }
-            66% { transform: translate(-10px, 15px) scale(0.97); }
+        /* Sehr langsame, traumhafte Schwebe-Animation */
+        @keyframes float {
+            0% { transform: translateY(10vh) scale(1) rotate(0deg); opacity: 0; }
+            20% { opacity: 0.35; }
+            80% { opacity: 0.35; }
+            100% { transform: translateY(-110vh) scale(1.1) rotate(15deg); opacity: 0; }
         }
 
-        /* --- Navbar (S/W Minimalismus) --- */
+        /* --- Navbar (S/W Glassmorphism) --- */
         .navbar {
             display: flex; justify-content: space-between; align-items: center;
             padding: 1.2rem 3rem; 
-            background-color: rgba(0, 0, 0, 0.7); 
+            background-color: rgba(0, 0, 0, 0.6); 
             backdrop-filter: blur(12px); 
             -webkit-backdrop-filter: blur(12px);
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
             position: fixed; width: 100%; top: 0; 
-            z-index: 1000; /* Ganz oben */
+            z-index: 1000;
         }
         .nav-left { display: flex; align-items: center; gap: 3rem; }
         
@@ -83,7 +83,7 @@
         }
 
         .nav-links { display: flex; list-style: none; gap: 2rem; }
-        .nav-links a { text-decoration: none; color: #888888; font-size: 0.85rem; font-weight: 600; text-transform: uppercase; cursor: pointer; transition: all 0.3s ease; }
+        .nav-links a { text-decoration: none; color: #aeb2d8; font-size: 0.85rem; font-weight: 600; text-transform: uppercase; cursor: pointer; transition: all 0.3s ease; }
         .nav-links a:hover, .nav-links a.active { color: #ffffff; }
         
         .icons { font-size: 1.2rem; display: flex; gap: 1.5rem; color: #ffffff; cursor: pointer; }
@@ -92,18 +92,18 @@
         /* --- Views --- */
         .view-section { 
             display: none; 
-            padding-top: 120px; 
+            padding-top: 100px; 
             padding-bottom: 4rem; 
             position: relative; 
-            z-index: 10; /* Inhalt liegt sicher über den Blasen */
+            z-index: 10; /* Content liegt sicher über den Blasen */
         }
         .view-section.active { display: block; animation: fadeIn 0.5s ease-in-out; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
         /* --- Ansicht 1: Neuheiten --- */
-        .hero { height: 45vh; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; }
+        .hero { height: 50vh; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; }
         .hero h1 { font-size: 4rem; font-weight: 800; margin-bottom: 0.5rem; letter-spacing: -2px; }
-        .hero p { font-size: 1.1rem; color: #888888; margin-bottom: 2.5rem; text-transform: uppercase; letter-spacing: 4px; }
+        .hero p { font-size: 1.2rem; color: #aeb2d8; margin-bottom: 2.5rem; text-transform: uppercase; letter-spacing: 4px; }
         .hero-btn { 
             padding: 1rem 3rem; 
             background: transparent; 
@@ -119,13 +119,13 @@
         .product-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 3rem; max-width: 1000px; margin: 2rem auto 2rem auto; padding: 0 2rem; }
         .product-card { 
             display: flex; flex-direction: column; align-items: center; 
-            background-color: rgba(15, 15, 15, 0.65); 
+            background-color: rgba(15, 15, 15, 0.6); 
             backdrop-filter: blur(8px);
             -webkit-backdrop-filter: blur(8px);
-            border: 1px solid rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.05);
             padding: 2rem; border-radius: 20px; position: relative; 
         }
-        .product-id { position: absolute; top: 1rem; left: 1.5rem; font-size: 1.2rem; font-weight: bold; color: #ffffff; opacity: 0.2; }
+        .product-id { position: absolute; top: 1rem; left: 1.5rem; font-size: 1.2rem; font-weight: bold; color: #ffffff; opacity: 0.3; }
         .badge { background-color: #ffffff; color: #000000; padding: 0.4rem 1.2rem; border-radius: 20px; font-size: 0.75rem; font-weight: 800; margin-bottom: 1rem; align-self: flex-end; }
         .product-image { width: 100%; height: 350px; background-size: contain; background-position: center; background-repeat: no-repeat; }
 
@@ -148,17 +148,17 @@
         .slider-card .product-image { height: 400px; background-size: contain; background-position: center; background-repeat: no-repeat; }
 
         /* --- Ansicht 3: Unsere Story & Vision --- */
-        .story-wrapper { min-height: 80vh; display: flex; flex-direction: column; align-items: center; justify-content: flex-start; padding-top: 2rem; }
+        .story-wrapper { min-height: 80vh; display: flex; flex-direction: column; align-items: center; justify-content: flex-start; padding-top: 4rem; }
         
         .story-section { 
             max-width: 800px; 
             text-align: center; 
             padding: 3rem; 
-            background-color: rgba(15, 15, 15, 0.65); 
+            background-color: rgba(15, 15, 15, 0.6); 
             backdrop-filter: blur(8px);
             -webkit-backdrop-filter: blur(8px);
             border-radius: 20px;
-            border: 1px solid rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.05);
         }
         
         .story-section h2 { font-size: 3.5rem; font-weight: 800; margin-bottom: 2rem; display: inline-block; border-bottom: 4px solid #ffffff; padding-bottom: 0.5rem; transform: skewX(-10deg); }
@@ -288,10 +288,9 @@
 
     <script>
         const bubbleContainer = document.getElementById('bubble-container');
-        const bubbleCount = 10; // Perfekte Anzahl: Schön verteilt, nicht überladen
+        const bubbleCount = 12; // Nur wenige Blasen, für den subtilen Effekt
 
-        // Verschiedene Zoom-Faktoren und Ausschnitte aus deinem Bild, 
-        // um immer andere Blasen einzufangen
+        // Ausschnitte aus deinem Originalbild (Positionen der schönsten Blasen)
         const bubbleCrops = [
             { bgPos: '45% 33%', bgSize: '400%' }, 
             { bgPos: '22% 10%', bgSize: '500%' }, 
@@ -306,22 +305,20 @@
             
             let crop = bubbleCrops[Math.floor(Math.random() * bubbleCrops.length)];
             
-            // Mittelgroße Dimensionen (70px bis 130px) für perfekten Look
-            let size = Math.random() * 60 + 70; 
+            let size = Math.random() * 80 + 70; // Leicht vergrößert für besseren Pixel-Look
             bubble.style.width = size + 'px';
             bubble.style.height = size + 'px';
             
             bubble.style.backgroundSize = crop.bgSize;
             bubble.style.backgroundPosition = crop.bgPos;
             
-            // Gleichmäßige Verteilung über den gesamten Viewport
-            bubble.style.left = Math.random() * 85 + 'vw';
-            bubble.style.top = Math.random() * 85 + 'vh';
+            // Verteilt sie über die gesamte Breite und von unten nach oben
+            bubble.style.left = Math.random() * 90 + 'vw';
             
-            // Extrem verlangsamte Animation (schwebt sanft hin und her)
-            let animationDuration = Math.random() * 15 + 25; // 25 bis 40 Sekunden pro Schleife
-            let animationDelay = Math.random() * -30; 
-            bubble.style.animation = `gentleFloat ${animationDuration}s infinite ease-in-out`;
+            // EXTREM langsames Aufsteigen (30 bis 60 Sekunden!)
+            let animationDuration = Math.random() * 30 + 30; 
+            let animationDelay = Math.random() * -60; // Sorgen dafür, dass beim Laden schon welche da sind
+            bubble.style.animation = `float ${animationDuration}s infinite linear`;
             bubble.style.animationDelay = `${animationDelay}s`;
             
             bubbleContainer.appendChild(bubble);
