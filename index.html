@@ -16,46 +16,43 @@
             position: relative;
         }
 
-        /* --- Dynamischer 1-zu-1 Seifenblasen-Hintergrund --- */
+        /* --- Dynamischer & Verpixelter Seifenblasen-Hintergrund --- */
         #bubble-container {
             position: fixed;
             top: 0;
             left: 0;
             width: 100vw;
             height: 100vh;
-            z-index: 1; 
+            z-index: 0; 
             overflow: hidden;
-            pointer-events: none; 
+            pointer-events: none;
         }
 
         .bubble {
             position: absolute;
-            /* NEU: Nutzt jetzt dein neues Bild! */
             background-image: url('image_a3b6e0.jpg'); 
             background-repeat: no-repeat;
-            
             mix-blend-mode: screen; 
             image-rendering: pixelated; 
             opacity: 0.35; 
             border-radius: 50%;
+            animation: breathe 12s infinite ease-in-out;
         }
 
-        @keyframes gentleFloat {
-            0%, 100% { transform: translate(0, 0) scale(1); }
-            33% { transform: translate(20px, -20px) scale(1.03); }
-            66% { transform: translate(-10px, 15px) scale(0.97); }
+        @keyframes breathe {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
         }
 
-        /* --- Navbar (S/W Minimalismus) --- */
+        /* --- Navbar --- */
         .navbar {
             display: flex; justify-content: space-between; align-items: center;
             padding: 1.2rem 3rem; 
             background-color: rgba(0, 0, 0, 0.7); 
             backdrop-filter: blur(12px); 
-            -webkit-backdrop-filter: blur(12px);
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
             position: fixed; width: 100%; top: 0; 
-            z-index: 1000; 
+            z-index: 1000;
         }
         .nav-left { display: flex; align-items: center; gap: 3rem; }
         
@@ -66,129 +63,42 @@
             display: flex; 
             flex-direction: column; 
         }
-        .anime-logo .ti { 
-            font-size: 1.1rem; 
-            font-weight: 900; 
-            letter-spacing: 1px; 
-            margin-bottom: 2px;
-            color: #ffffff; 
-        }
-        .anime-logo .en { 
-            font-size: 0.9rem; 
-            letter-spacing: 4px; 
-            color: #ffffff; 
-        }
+        .anime-logo .ti { font-size: 1.1rem; font-weight: 900; letter-spacing: 1px; margin-bottom: 2px; color: #ffffff; }
+        .anime-logo .en { font-size: 0.9rem; letter-spacing: 4px; color: #ffffff; }
 
         .nav-links { display: flex; list-style: none; gap: 2rem; }
         .nav-links a { text-decoration: none; color: #888888; font-size: 0.85rem; font-weight: 600; text-transform: uppercase; cursor: pointer; transition: all 0.3s ease; }
         .nav-links a:hover, .nav-links a.active { color: #ffffff; }
         
         .icons { font-size: 1.2rem; display: flex; gap: 1.5rem; color: #ffffff; cursor: pointer; }
-        .icons span:hover { opacity: 0.7; }
 
         /* --- Views --- */
-        .view-section { 
-            display: none; 
-            padding-top: 120px; 
-            padding-bottom: 4rem; 
-            position: relative; 
-            z-index: 10; 
-        }
-        .view-section.active { display: block; animation: fadeIn 0.5s ease-in-out; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .view-section { display: none; padding-top: 150px; padding-bottom: 4rem; position: relative; z-index: 10; }
+        .view-section.active { display: block; }
 
         /* --- Ansicht 1: Neuheiten --- */
-        .hero { height: 45vh; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; }
-        .hero h1 { font-size: 4rem; font-weight: 800; margin-bottom: 0.5rem; letter-spacing: -2px; }
-        .hero p { font-size: 1.1rem; color: #888888; margin-bottom: 2.5rem; text-transform: uppercase; letter-spacing: 4px; }
-        .hero-btn { 
-            padding: 1rem 3rem; 
-            background: transparent; 
-            color: #ffffff; 
-            text-decoration: none; 
-            border-radius: 40px; 
-            font-weight: 700;
-            border: 1px solid #ffffff;
-            transition: all 0.3s ease;
-        }
+        .hero { text-align: center; margin-bottom: 4rem; }
+        .hero h1 { font-size: 4rem; font-weight: 800; letter-spacing: -2px; }
+        .hero p { color: #888888; margin: 1rem 0; text-transform: uppercase; letter-spacing: 2px; }
+        .hero-btn { padding: 1rem 3rem; border: 1px solid #ffffff; color: white; text-decoration: none; border-radius: 40px; font-weight: 700; transition: 0.3s; }
         .hero-btn:hover { background: #ffffff; color: #000000; }
-        
-        .product-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 3rem; max-width: 1000px; margin: 2rem auto 2rem auto; padding: 0 2rem; }
-        .product-card { 
-            display: flex; flex-direction: column; align-items: center; 
-            background-color: rgba(15, 15, 15, 0.65); 
-            backdrop-filter: blur(8px);
-            -webkit-backdrop-filter: blur(8px);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            padding: 2rem; border-radius: 20px; position: relative; 
-        }
-        .product-id { position: absolute; top: 1rem; left: 1.5rem; font-size: 1.2rem; font-weight: bold; color: #ffffff; opacity: 0.2; }
-        .badge { background-color: #ffffff; color: #000000; padding: 0.4rem 1.2rem; border-radius: 20px; font-size: 0.75rem; font-weight: 800; margin-bottom: 1rem; align-self: flex-end; }
-        .product-image { width: 100%; height: 350px; background-size: contain; background-position: center; background-repeat: no-repeat; }
 
-        /* --- Ansicht 2: Kollektionen --- */
-        .collections-header { text-align: center; margin-bottom: 2rem; }
-        .collections-header h2 { font-size: 3rem; font-weight: 800; letter-spacing: -1px; }
+        .product-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 3rem; max-width: 900px; margin: 0 auto; }
+        .product-card { background: rgba(20,20,20,0.6); padding: 2rem; border: 1px solid #333; border-radius: 20px; position: relative; }
+        .product-id { position: absolute; top: 1rem; left: 1.5rem; color: #555; font-weight: bold; }
+        .badge { background: #fff; color: #000; padding: 0.3rem 1rem; border-radius: 20px; font-size: 0.7rem; float: right; font-weight: 800; }
+        .product-image { width: 100%; height: 300px; background-size: contain; background-repeat: no-repeat; background-position: center; margin-top: 2rem; }
 
-        .slider-container { display: flex; align-items: center; justify-content: center; gap: 2rem; max-width: 900px; margin: 0 auto; padding: 0 2rem; }
-        .slider-btn { background: rgba(15, 15, 15, 0.6); backdrop-filter: blur(5px); border: 1px solid rgba(255,255,255,0.2); color: #ffffff; border-radius: 50%; width: 50px; height: 50px; font-size: 1.5rem; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.3s; }
-        .slider-btn:hover { background: #ffffff; color: #000000; }
-        
-        .slider-card { 
-            flex-grow: 1; max-width: 500px; 
-            background-color: rgba(15, 15, 15, 0.6); 
-            backdrop-filter: blur(8px);
-            -webkit-backdrop-filter: blur(8px);
-            border: 1px solid rgba(255, 255, 255, 0.05); 
-            padding: 3rem; border-radius: 20px; position: relative; text-align: center; 
-        }
-        .slider-card .product-image { height: 400px; background-size: contain; background-position: center; background-repeat: no-repeat; }
-
-        /* --- Ansicht 3: Unsere Story & Vision --- */
-        .story-wrapper { min-height: 80vh; display: flex; flex-direction: column; align-items: center; justify-content: flex-start; padding-top: 2rem; }
-        
-        .story-section { 
-            max-width: 800px; 
-            text-align: center; 
-            padding: 3rem; 
-            background-color: rgba(15, 15, 15, 0.65); 
-            backdrop-filter: blur(8px);
-            -webkit-backdrop-filter: blur(8px);
-            border-radius: 20px;
-            border: 1px solid rgba(255, 255, 255, 0.08);
-        }
-        
-        .story-section h2 { font-size: 3.5rem; font-weight: 800; margin-bottom: 2rem; display: inline-block; border-bottom: 4px solid #ffffff; padding-bottom: 0.5rem; transform: skewX(-10deg); }
-        .story-section p { font-size: 1.1rem; line-height: 1.8; color: #cccccc; margin-bottom: 1.5rem; text-align: justify; }
-
-        /* Scrapbook Bild-Styling */
-        .story-image-container { position: relative; display: inline-block; margin-top: 4rem; margin-bottom: 1rem; }
-        .story-image { max-width: 100%; height: auto; border: 10px solid #ffffff; box-shadow: 0 15px 30px rgba(0,0,0,0.8); transform: rotate(2deg); display: block; filter: grayscale(100%); }
-
-        .tape { position: absolute; background-color: #111; width: 80px; height: 25px; box-shadow: 0 2px 5px rgba(0,0,0,0.5); z-index: 10; }
-        .tape-top-left { top: -15px; left: -25px; transform: rotate(-45deg); }
-        .tape-bottom-right { bottom: -15px; right: -25px; transform: rotate(-45deg); }
-
-        /* --- Responsive Design --- */
-        @media (max-width: 768px) {
-            .nav-links { display: none; }
-            .product-grid { grid-template-columns: 1fr; } 
-            .hero h1 { font-size: 3rem; }
-            .slider-container { flex-direction: column; }
-            .slider-btn { transform: rotate(90deg); margin: 1rem 0; }
-            .story-section { padding: 1.5rem; margin: 0 1rem; }
-            .story-section h2 { font-size: 2.5rem; }
-            .story-image { border-width: 8px; }
-            .tape { width: 50px; height: 15px; }
-        }
+        /* --- Story & Vision --- */
+        .story-wrapper { max-width: 800px; margin: 0 auto; padding: 2rem; background: rgba(20,20,20,0.6); border-radius: 20px; }
+        .story-section h2 { font-size: 3rem; margin-bottom: 2rem; border-bottom: 2px solid #fff; display: inline-block; }
+        .story-section p { margin-bottom: 1.5rem; line-height: 1.6; color: #ccc; }
     </style>
 </head>
 <body>
 
-    <!-- Hintergrund-Container für die echten Bild-Seifenblasen -->
     <div id="bubble-container"></div>
 
-    <!-- Navigation -->
     <nav class="navbar">
         <div class="nav-left">
             <div class="anime-logo" id="logo-btn">
@@ -201,195 +111,23 @@
                 <li><a id="nav-story">Our Story</a></li>
             </ul>
         </div>
-        <div class="icons">
-            <span>🔍</span> <span>👤</span> <span>🛒</span>
-        </div>
+        <div class="icons"><span>🔍</span> <span>👤</span> <span>🛒</span></div>
     </nav>
 
-    <!-- ANSICHT 1: HOME / NEUHEITEN -->
     <div id="view-neuheiten" class="view-section active">
         <header class="hero">
             <h1>WE ARE LUMINA</h1>
-            <p>Matthew 5:14 You are the light of the world.</p>
+            <p>You are the light of the world. A town built on a hill cannot be hidden.</p>
             <a href="#" class="hero-btn">SHOP THE DROP</a>
         </header>
-
         <section class="product-grid">
-            <div class="product-card">
-                <span class="product-id">P1</span><div class="badge">Sold Out</div>
-                <div class="product-image" style="background-image: url('https://placehold.co/400x400/transparent/ffffff?text=TSHIRT+1');"></div>
-            </div>
-            <div class="product-card">
-                <span class="product-id">P2</span><div class="badge">Sold Out</div>
-                <div class="product-image" style="background-image: url('https://placehold.co/400x400/transparent/ffffff?text=TSHIRT+2');"></div>
-            </div>
-            <div class="product-card">
-                <span class="product-id">P3</span><div class="badge">New Arrivals</div>
-                <div class="product-image" style="background-image: url('https://placehold.co/400x400/transparent/ffffff?text=PULLOVER+1');"></div>
-            </div>
-            <div class="product-card">
-                <span class="product-id">P4</span><div class="badge">Last Chance</div>
-                <div class="product-image" style="background-image: url('https://placehold.co/400x400/transparent/ffffff?text=TSHIRT+3');"></div>
-            </div>
+            <div class="product-card"><span class="product-id">P1</span><div class="badge">Sold Out</div><div class="product-image"></div></div>
+            <div class="product-card"><span class="product-id">P2</span><div class="badge">Sold Out</div><div class="product-image"></div></div>
         </section>
     </div>
 
-    <!-- ANSICHT 2: KOLLEKTIONEN (Slider) -->
     <div id="view-kollektionen" class="view-section">
-        <div class="collections-header">
-            <h2>Collections</h2>
-        </div>
-
-        <div class="slider-container">
-            <button class="slider-btn" onclick="prevSlide()">&#9664;</button>
-            
-            <div class="slider-card">
-                <span class="product-id" id="slider-id">P1</span>
-                <div class="badge" id="slider-badge">Core Collection</div>
-                <div class="product-image" id="slider-img" style="background-image: url('https://placehold.co/600x600/transparent/ffffff?text=TSHIRT+1');"></div>
-            </div>
-
-            <button class="slider-btn" onclick="nextSlide()">&#9654;</button>
-        </div>
+        <div class="story-wrapper"><h2>Collections</h2><p>Coming soon...</p></div>
     </div>
 
-    <!-- ANSICHT 3: UNSERE STORY & VISION -->
-    <div id="view-story" class="view-section">
-        <div class="story-wrapper">
-            <div class="story-section">
-                <h2>Our Story</h2>
-                <p>
-                    Even during my school years, I felt a strong urge to move in a creative direction. After graduating, encouraged by a teacher’s valuable recommendation, I applied to a fashion school highly motivated. 
-                </p>
-                <p>
-                    However, the path took a different turn: I ultimately ended up at an art school. The focus there was heavily on fine arts and much less on textiles, which I had originally hoped for. Although this path initially seemed to contradict my plans, I learned an incredible amount there. 
-                </p>
-                <p>
-                    Still, I realized that my original vision – merging fashion and art – had always remained in my heart. That is why I am now at the point of finally giving this dream a real chance. WEARELUMINA is the result of this boundless creative energy.
-                </p>
-
-                <h2 style="margin-top: 3rem;">Our Vision</h2>
-                <p style="font-style: italic; font-weight: bold; color: #ffffff;">
-                    “You are the light of the world. A town built on a hill cannot be hidden.” <span style="font-weight: normal; font-size: 0.9rem; color: #888888;">(Matthew 5:14)</span>
-                </p>
-                <p>
-                    This thought forms the foundation of WEARELUMINA. We are not about building an exclusive Christian brand, but rather giving this profound message a tangible expression. Our vision is to remind people of how valuable they are and that they are destined to be a light in a often broken civilization.
-                </p>
-                <p>
-                    Being a light does not mean being perfect. Rather, it means having the courage to make yourself visible with all your weaknesses, flaws, and blind spots. True light shines brightest when we authentically embrace ourselves and have the courage to be real.
-                </p>
-
-                <!-- Das Bild im Scrapbook-Style -->
-                <div class="story-image-container">
-                    <div class="tape tape-top-left"></div>
-                    <img src="image_0acc4d.jpg" alt="Idea No. 1 - Sketch" class="story-image">
-                    <div class="tape tape-bottom-right"></div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- JavaScript für Extraktion und Generierung -->
-    <script>
-        const bubbleContainer = document.getElementById('bubble-container');
-        const bubbleCount = 10; 
-
-        // Angepasst für das neue, dichtere Bild "image_a3b6e0.jpg"
-        const bubbleCrops = [
-            { bgPos: '10% 20%', bgSize: '250%' }, 
-            { bgPos: '80% 80%', bgSize: '300%' }, 
-            { bgPos: '50% 50%', bgSize: '250%' }, 
-            { bgPos: '20% 80%', bgSize: '350%' }, 
-            { bgPos: '80% 20%', bgSize: '300%' }  
-        ];
-
-        for (let i = 0; i < bubbleCount; i++) {
-            let bubble = document.createElement('div');
-            bubble.classList.add('bubble');
-            
-            let crop = bubbleCrops[Math.floor(Math.random() * bubbleCrops.length)];
-            
-            let size = Math.random() * 60 + 70; 
-            bubble.style.width = size + 'px';
-            bubble.style.height = size + 'px';
-            
-            bubble.style.backgroundSize = crop.bgSize;
-            bubble.style.backgroundPosition = crop.bgPos;
-            
-            bubble.style.left = Math.random() * 85 + 'vw';
-            bubble.style.top = Math.random() * 85 + 'vh';
-            
-            let animationDuration = Math.random() * 15 + 25; 
-            let animationDelay = Math.random() * -30; 
-            bubble.style.animation = `gentleFloat ${animationDuration}s infinite ease-in-out`;
-            bubble.style.animationDelay = `${animationDelay}s`;
-            
-            bubbleContainer.appendChild(bubble);
-        }
-
-        // --- Navigation Logic ---
-        const navNeuheiten = document.getElementById('nav-neuheiten');
-        const navKollektionen = document.getElementById('nav-kollektionen');
-        const navStory = document.getElementById('nav-story');
-        const logoBtn = document.getElementById('logo-btn');
-        
-        const viewNeuheiten = document.getElementById('view-neuheiten');
-        const viewKollektionen = document.getElementById('view-kollektionen');
-        const viewStory = document.getElementById('view-story');
-
-        function showView(viewName) {
-            viewNeuheiten.classList.remove('active');
-            viewKollektionen.classList.remove('active');
-            viewStory.classList.remove('active');
-            
-            navNeuheiten.classList.remove('active');
-            navKollektionen.classList.remove('active');
-            navStory.classList.remove('active');
-
-            if (viewName === 'neuheiten') {
-                viewNeuheiten.classList.add('active');
-                navNeuheiten.classList.add('active');
-            } else if (viewName === 'kollektionen') {
-                viewKollektionen.classList.add('active');
-                navKollektionen.classList.add('active');
-            } else if (viewName === 'story') {
-                viewStory.classList.add('active');
-                navStory.classList.add('active');
-            }
-            window.scrollTo(0, 0); 
-        }
-
-        navNeuheiten.addEventListener('click', () => showView('neuheiten'));
-        logoBtn.addEventListener('click', () => showView('neuheiten')); 
-        navKollektionen.addEventListener('click', () => showView('kollektionen'));
-        navStory.addEventListener('click', () => showView('story'));
-
-        // --- Slider Logic ---
-        const products = [
-            { id: "P1", badge: "Core Collection", img: "https://placehold.co/600x600/transparent/ffffff?text=TSHIRT+1" },
-            { id: "P2", badge: "Summer Drop", img: "https://placehold.co/600x600/transparent/ffffff?text=TSHIRT+2" },
-            { id: "P3", badge: "Winter Edit", img: "https://placehold.co/600x600/transparent/ffffff?text=PULLOVER+1" }
-        ];
-
-        let currentIndex = 0;
-
-        function updateSlider() {
-            document.getElementById('slider-id').innerText = products[currentIndex].id;
-            document.getElementById('slider-badge').innerText = products[currentIndex].badge;
-            document.getElementById('slider-img').style.backgroundImage = `url('${products[currentIndex].img}')`;
-        }
-
-        function nextSlide() {
-            currentIndex++;
-            if (currentIndex >= products.length) currentIndex = 0; 
-            updateSlider();
-        }
-
-        function prevSlide() {
-            currentIndex--;
-            if (currentIndex < 0) currentIndex = products.length - 1; 
-            updateSlider();
-        }
-    </script>
-</body>
-</html>
+    <div id="view-story" class="view-
