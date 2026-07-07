@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -11,40 +11,42 @@
         
         body { 
             background-color: #000000; /* Reines Schwarz */
-            color: #ffffff; /* Reines Weiß */
+            color: #ffffff; 
             overflow-x: hidden; 
         }
 
-        /* --- Dynamischer 1-zu-1 Seifenblasen-Hintergrund --- */
+        /* --- Dynamischer & Verpixelter Seifenblasen-Hintergrund --- */
         #bubble-container {
             position: fixed;
             top: 0;
             left: 0;
             width: 100vw;
             height: 100vh;
-            z-index: 0; /* GEFIXT: Nicht mehr -1, sonst verschluckt das Schwarz die Blasen */
+            z-index: 0; /* Bleibt sicher im Hintergrund */
             overflow: hidden;
-            pointer-events: none; 
+            pointer-events: none; /* Blockiert keine Klicks */
         }
 
         .bubble {
             position: absolute;
-            /* GEFIXT: Sucht jetzt nach deinem originalen Dateinamen */
             background-image: url('-24.jpg'); 
             background-repeat: no-repeat;
             
-            /* Der Magic-Trick: Blendet das Schwarz des Bildes komplett aus! */
+            /* Der Magic-Trick: Macht das Schwarz im Bild unsichtbar */
             mix-blend-mode: screen; 
             
-            /* Erzeugt einen weichen, runden Rand, damit man keine eckigen Kanten sieht */
-            -webkit-mask-image: radial-gradient(circle, rgba(0,0,0,1) 40%, rgba(0,0,0,0) 70%);
-            mask-image: radial-gradient(circle, rgba(0,0,0,1) 40%, rgba(0,0,0,0) 70%);
+            /* Die Ästhetik: Verpixelt und verträumt subtil */
+            image-rendering: pixelated; /* Verstärkt den retro Pixel-Look */
+            opacity: 0.35; /* Macht sie transparent, damit sie nicht ablenken */
+            border-radius: 50%;
         }
 
-        /* Sehr langsame, sanfte Schwebe-Animation */
+        /* Sehr langsame, traumhafte Schwebe-Animation */
         @keyframes float {
-            0%, 100% { transform: translateY(0px) scale(1); }
-            50% { transform: translateY(-30px) scale(1.05); }
+            0% { transform: translateY(10vh) scale(1) rotate(0deg); opacity: 0; }
+            20% { opacity: 0.35; }
+            80% { opacity: 0.35; }
+            100% { transform: translateY(-110vh) scale(1.1) rotate(15deg); opacity: 0; }
         }
 
         /* --- Navbar (S/W Glassmorphism) --- */
@@ -92,8 +94,8 @@
             display: none; 
             padding-top: 100px; 
             padding-bottom: 4rem; 
-            position: relative; /* GEFIXT: Garantiert, dass der Inhalt über den Blasen liegt */
-            z-index: 10; 
+            position: relative; 
+            z-index: 10; /* Content liegt sicher über den Blasen */
         }
         .view-section.active { display: block; animation: fadeIn 0.5s ease-in-out; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
@@ -243,4 +245,148 @@
             <div class="slider-card">
                 <span class="product-id" id="slider-id">P1</span>
                 <div class="badge" id="slider-badge">Core Collection</div>
-                <div class="product-image" id="slider-img" style="background-image: url('https://placehold.co/600
+                <div class="product-image" id="slider-img" style="background-image: url('https://placehold.co/600x600/transparent/ffffff?text=TSHIRT+1');"></div>
+            </div>
+
+            <button class="slider-btn" onclick="nextSlide()">&#9654;</button>
+        </div>
+    </div>
+
+    <div id="view-story" class="view-section">
+        <div class="story-wrapper">
+            <div class="story-section">
+                <h2>Our Story</h2>
+                <p>
+                    Even during my school years, I felt a strong urge to move in a creative direction. After graduating, encouraged by a teacher’s valuable recommendation, I applied to a fashion school highly motivated. 
+                </p>
+                <p>
+                    However, the path took a different turn: I ultimately ended up at an art school. The focus there was heavily on fine arts and much less on textiles, which I had originally hoped for. Although this path initially seemed to contradict my plans, I learned an incredible amount there. 
+                </p>
+                <p>
+                    Still, I realized that my original vision – merging fashion and art – had always remained in my heart. That is why I am now at the point of finally giving this dream a real chance. WEARELUMINA is the result of this boundless creative energy.
+                </p>
+
+                <h2 style="margin-top: 3rem;">Our Vision</h2>
+                <p style="font-style: italic; font-weight: bold; color: #ffffff;">
+                    “You are the light of the world. A town built on a hill cannot be hidden.” <span style="font-weight: normal; font-size: 0.9rem; color: #888888;">(Matthew 5:14)</span>
+                </p>
+                <p>
+                    This thought forms the foundation of WEARELUMINA. We are not about building an exclusive Christian brand, but rather giving this profound message a tangible expression. Our vision is to remind people of how valuable they are and that they are destined to be a light in a often broken civilization.
+                </p>
+                <p>
+                    Being a light does not mean being perfect. Rather, it means having the courage to make yourself visible with all your weaknesses, flaws, and blind spots. True light shines brightest when we authentically embrace ourselves and have the courage to be real.
+                </p>
+
+                <div class="story-image-container">
+                    <div class="tape tape-top-left"></div>
+                    <img src="image_0acc4d.jpg" alt="Idea No. 1 - Sketch" class="story-image">
+                    <div class="tape tape-bottom-right"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const bubbleContainer = document.getElementById('bubble-container');
+        const bubbleCount = 12; // Nur wenige Blasen, für den subtilen Effekt
+
+        // Ausschnitte aus deinem Originalbild (Positionen der schönsten Blasen)
+        const bubbleCrops = [
+            { bgPos: '45% 33%', bgSize: '400%' }, 
+            { bgPos: '22% 10%', bgSize: '500%' }, 
+            { bgPos: '78% 12%', bgSize: '600%' }, 
+            { bgPos: '30% 73%', bgSize: '450%' }, 
+            { bgPos: '68% 85%', bgSize: '550%' }  
+        ];
+
+        for (let i = 0; i < bubbleCount; i++) {
+            let bubble = document.createElement('div');
+            bubble.classList.add('bubble');
+            
+            let crop = bubbleCrops[Math.floor(Math.random() * bubbleCrops.length)];
+            
+            let size = Math.random() * 80 + 70; // Leicht vergrößert für besseren Pixel-Look
+            bubble.style.width = size + 'px';
+            bubble.style.height = size + 'px';
+            
+            bubble.style.backgroundSize = crop.bgSize;
+            bubble.style.backgroundPosition = crop.bgPos;
+            
+            // Verteilt sie über die gesamte Breite und von unten nach oben
+            bubble.style.left = Math.random() * 90 + 'vw';
+            
+            // EXTREM langsames Aufsteigen (30 bis 60 Sekunden!)
+            let animationDuration = Math.random() * 30 + 30; 
+            let animationDelay = Math.random() * -60; // Sorgen dafür, dass beim Laden schon welche da sind
+            bubble.style.animation = `float ${animationDuration}s infinite linear`;
+            bubble.style.animationDelay = `${animationDelay}s`;
+            
+            bubbleContainer.appendChild(bubble);
+        }
+
+        // --- Navigation Logic ---
+        const navNeuheiten = document.getElementById('nav-neuheiten');
+        const navKollektionen = document.getElementById('nav-kollektionen');
+        const navStory = document.getElementById('nav-story');
+        const logoBtn = document.getElementById('logo-btn');
+        
+        const viewNeuheiten = document.getElementById('view-neuheiten');
+        const viewKollektionen = document.getElementById('view-kollektionen');
+        const viewStory = document.getElementById('view-story');
+
+        function showView(viewName) {
+            viewNeuheiten.classList.remove('active');
+            viewKollektionen.classList.remove('active');
+            viewStory.classList.remove('active');
+            
+            navNeuheiten.classList.remove('active');
+            navKollektionen.classList.remove('active');
+            navStory.classList.remove('active');
+
+            if (viewName === 'neuheiten') {
+                viewNeuheiten.classList.add('active');
+                navNeuheiten.classList.add('active');
+            } else if (viewName === 'kollektionen') {
+                viewKollektionen.classList.add('active');
+                navKollektionen.classList.add('active');
+            } else if (viewName === 'story') {
+                viewStory.classList.add('active');
+                navStory.classList.add('active');
+            }
+            window.scrollTo(0, 0); 
+        }
+
+        navNeuheiten.addEventListener('click', () => showView('neuheiten'));
+        logoBtn.addEventListener('click', () => showView('neuheiten')); 
+        navKollektionen.addEventListener('click', () => showView('kollektionen'));
+        navStory.addEventListener('click', () => showView('story'));
+
+        // --- Slider Logic ---
+        const products = [
+            { id: "P1", badge: "Core Collection", img: "https://placehold.co/600x600/transparent/ffffff?text=TSHIRT+1" },
+            { id: "P2", badge: "Summer Drop", img: "https://placehold.co/600x600/transparent/ffffff?text=TSHIRT+2" },
+            { id: "P3", badge: "Winter Edit", img: "https://placehold.co/600x600/transparent/ffffff?text=PULLOVER+1" }
+        ];
+
+        let currentIndex = 0;
+
+        function updateSlider() {
+            document.getElementById('slider-id').innerText = products[currentIndex].id;
+            document.getElementById('slider-badge').innerText = products[currentIndex].badge;
+            document.getElementById('slider-img').style.backgroundImage = `url('${products[currentIndex].img}')`;
+        }
+
+        function nextSlide() {
+            currentIndex++;
+            if (currentIndex >= products.length) currentIndex = 0; 
+            updateSlider();
+        }
+
+        function prevSlide() {
+            currentIndex--;
+            if (currentIndex < 0) currentIndex = products.length - 1; 
+            updateSlider();
+        }
+    </script>
+</body>
+</html>
