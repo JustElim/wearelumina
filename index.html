@@ -10,22 +10,29 @@
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
         
         body { 
-            background-color: #2b317c; 
+            /* Das neue Hintergrundbild */
+            background-image: url('image_918fce.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed; /* Bleibt beim Scrollen stehen */
+            background-color: #050505; /* Fallback */
             color: #ffffff; 
             overflow-x: hidden; 
         }
 
-        /* --- Navbar --- */
+        /* --- Navbar (Glassmorphism Effekt) --- */
         .navbar {
             display: flex; justify-content: space-between; align-items: center;
-            padding: 1.2rem 3rem; background-color: #1a1e52; 
-            box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+            padding: 1.2rem 3rem; 
+            background-color: rgba(5, 5, 5, 0.7); /* Halbtransparent schwarz */
+            backdrop-filter: blur(12px); /* Verschwommener Hintergrund */
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
             position: fixed; width: 100%; top: 0; z-index: 1000;
         }
         .nav-left { display: flex; align-items: center; gap: 3rem; }
         
         .anime-logo { 
-            color: #e52b20; 
             transform: skewX(-12deg); 
             font-family: 'Arial Black', sans-serif; 
             cursor: pointer; 
@@ -37,6 +44,8 @@
             font-weight: 900; 
             letter-spacing: 1px; 
             margin-bottom: 2px;
+            color: #ff33aa; /* Neon Pink aus den Blasen */
+            text-shadow: 0 0 10px rgba(255, 51, 170, 0.5);
         }
         .anime-logo .en { 
             font-size: 0.9rem; 
@@ -45,9 +54,13 @@
         }
 
         .nav-links { display: flex; list-style: none; gap: 2rem; }
-        .nav-links a { text-decoration: none; color: #aeb2d8; font-size: 0.85rem; font-weight: 600; text-transform: uppercase; cursor: pointer; transition: color 0.2s; }
-        .nav-links a:hover, .nav-links a.active { color: #ffffff; }
-        .icons { font-size: 1.2rem; display: flex; gap: 1.5rem; color: #aeb2d8; cursor: pointer; }
+        .nav-links a { text-decoration: none; color: #aeb2d8; font-size: 0.85rem; font-weight: 600; text-transform: uppercase; cursor: pointer; transition: all 0.3s ease; }
+        .nav-links a:hover, .nav-links a.active { 
+            color: #00f3ff; /* Neon Cyan aus den Blasen */
+            text-shadow: 0 0 8px rgba(0, 243, 255, 0.5);
+        }
+        .icons { font-size: 1.2rem; display: flex; gap: 1.5rem; color: #ffffff; cursor: pointer; }
+        .icons span:hover { color: #00f3ff; }
 
         /* --- Views (Zum Ein- und Ausblenden) --- */
         .view-section { display: none; padding-top: 100px; padding-bottom: 4rem; }
@@ -56,71 +69,105 @@
 
         /* --- Ansicht 1: Neuheiten (Hero + 4er Grid) --- */
         .hero { height: 50vh; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; }
-        .hero h1 { font-size: 4rem; font-weight: 800; margin-bottom: 0.5rem; letter-spacing: -2px; }
-        .hero p { font-size: 1.2rem; color: #aeb2d8; margin-bottom: 2.5rem; text-transform: uppercase; letter-spacing: 4px; }
-        .hero-btn { padding: 1rem 3rem; background: #ffffff; color: #1a1e52; text-decoration: none; border-radius: 40px; font-weight: 700; }
+        .hero h1 { font-size: 4rem; font-weight: 800; margin-bottom: 0.5rem; letter-spacing: -2px; text-shadow: 0 4px 15px rgba(0,0,0,0.8); }
+        .hero p { font-size: 1.2rem; color: #e0e0e0; margin-bottom: 2.5rem; text-transform: uppercase; letter-spacing: 4px; text-shadow: 0 2px 10px rgba(0,0,0,0.8); }
+        .hero-btn { 
+            padding: 1rem 3rem; 
+            background: rgba(255, 255, 255, 0.1); 
+            color: #ffffff; 
+            text-decoration: none; 
+            border-radius: 40px; 
+            font-weight: 700;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            backdrop-filter: blur(5px);
+            transition: all 0.3s ease;
+        }
+        .hero-btn:hover {
+            background: #ffffff;
+            color: #050505;
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+        }
         
         .product-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 3rem; max-width: 1000px; margin: 2rem auto 2rem auto; padding: 0 2rem; }
-        .product-card { display: flex; flex-direction: column; align-items: center; background-color: rgba(26, 30, 82, 0.5); padding: 2rem; border-radius: 20px; position: relative; }
-        .product-id { position: absolute; top: 1rem; left: 1.5rem; font-size: 1.2rem; font-weight: bold; color: #aeb2d8; opacity: 0.7; }
-        .badge { background-color: #ffffff; color: #1a1e52; padding: 0.4rem 1.2rem; border-radius: 20px; font-size: 0.75rem; font-weight: 700; margin-bottom: 1rem; align-self: flex-end; }
-        .product-image { width: 100%; height: 350px; background-size: contain; background-position: center; background-repeat: no-repeat; }
+        .product-card { 
+            display: flex; flex-direction: column; align-items: center; 
+            background-color: rgba(10, 10, 15, 0.7); 
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(0, 243, 255, 0.15); /* Leichter Cyan-Rand */
+            padding: 2rem; border-radius: 20px; position: relative; 
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+        }
+        .product-id { position: absolute; top: 1rem; left: 1.5rem; font-size: 1.2rem; font-weight: bold; color: #ffffff; opacity: 0.5; }
+        .badge { background-color: #00f3ff; color: #050505; padding: 0.4rem 1.2rem; border-radius: 20px; font-size: 0.75rem; font-weight: 800; margin-bottom: 1rem; align-self: flex-end; box-shadow: 0 0 10px rgba(0, 243, 255, 0.4); }
+        .product-image { width: 100%; height: 350px; background-size: contain; background-position: center; background-repeat: no-repeat; filter: drop-shadow(0 10px 15px rgba(0,0,0,0.5)); }
 
         /* --- Ansicht 2: Kollektionen (Slider) --- */
         .collections-header { text-align: center; margin-bottom: 2rem; }
-        .collections-header h2 { font-size: 3rem; font-weight: 800; letter-spacing: -1px; }
+        .collections-header h2 { font-size: 3rem; font-weight: 800; letter-spacing: -1px; text-shadow: 0 4px 15px rgba(0,0,0,0.8); }
 
         .slider-container { display: flex; align-items: center; justify-content: center; gap: 2rem; max-width: 900px; margin: 0 auto; padding: 0 2rem; }
-        .slider-btn { background: transparent; border: 2px solid #aeb2d8; color: #aeb2d8; border-radius: 50%; width: 50px; height: 50px; font-size: 1.5rem; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.3s; }
-        .slider-btn:hover { background: #ffffff; color: #1a1e52; border-color: #ffffff; }
+        .slider-btn { background: rgba(10, 10, 15, 0.7); backdrop-filter: blur(5px); border: 1px solid rgba(255,255,255,0.2); color: #ffffff; border-radius: 50%; width: 50px; height: 50px; font-size: 1.5rem; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.3s; }
+        .slider-btn:hover { background: #00f3ff; color: #050505; border-color: #00f3ff; box-shadow: 0 0 15px rgba(0, 243, 255, 0.6); }
         
-        .slider-card { flex-grow: 1; max-width: 500px; background-color: rgba(26, 30, 82, 0.8); padding: 3rem; border-radius: 20px; position: relative; text-align: center; }
-        .slider-card .product-image { height: 400px; background-size: contain; background-position: center; background-repeat: no-repeat;}
+        .slider-card { 
+            flex-grow: 1; max-width: 500px; 
+            background-color: rgba(10, 10, 15, 0.7); 
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 51, 170, 0.15); /* Leichter Pink-Rand */
+            padding: 3rem; border-radius: 20px; position: relative; text-align: center; 
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+        }
+        .slider-card .product-image { height: 400px; background-size: contain; background-position: center; background-repeat: no-repeat; filter: drop-shadow(0 10px 15px rgba(0,0,0,0.5)); }
 
         /* --- Ansicht 3: Unsere Story & Vision --- */
         .story-wrapper { min-height: 80vh; display: flex; flex-direction: column; align-items: center; justify-content: flex-start; padding-top: 4rem; }
-        .story-section { max-width: 800px; text-align: center; padding: 0 2rem; }
-        .story-section h2 { font-size: 3.5rem; font-weight: 800; margin-bottom: 2rem; display: inline-block; border-bottom: 4px solid #e52b20; padding-bottom: 0.5rem; transform: skewX(-10deg); }
-        .story-section p { font-size: 1.1rem; line-height: 1.8; color: #aeb2d8; margin-bottom: 1.5rem; text-align: justify; }
+        
+        /* Neuer Glass-Container für den Text, damit er lesbar bleibt */
+        .story-section { 
+            max-width: 800px; 
+            text-align: center; 
+            padding: 3rem; 
+            background-color: rgba(5, 5, 10, 0.75); 
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.6);
+        }
+        
+        .story-section h2 { font-size: 3.5rem; font-weight: 800; margin-bottom: 2rem; display: inline-block; border-bottom: 4px solid #ff33aa; padding-bottom: 0.5rem; transform: skewX(-10deg); text-shadow: 0 2px 10px rgba(255, 51, 170, 0.3); }
+        .story-section p { font-size: 1.1rem; line-height: 1.8; color: #d1d5db; margin-bottom: 1.5rem; text-align: justify; }
 
         /* Scrapbook Bild-Styling mit Klebestreifen-Effekt */
         .story-image-container {
             position: relative;
             display: inline-block;
             margin-top: 4rem;
-            margin-bottom: 4rem;
+            margin-bottom: 1rem;
         }
 
         .story-image {
             max-width: 100%;
             height: auto;
-            border: 15px solid #ffffff; /* Weißer Fotorahmen */
-            box-shadow: 0 8px 25px rgba(0,0,0,0.5);
-            transform: rotate(2deg); /* Leichte Drehung wie aufgeklebt */
+            border: 10px solid rgba(255, 255, 255, 0.9); /* Fotorahmen leicht angepasst */
+            box-shadow: 0 15px 30px rgba(0,0,0,0.8);
+            transform: rotate(2deg); 
             display: block;
         }
 
         /* Die schwarzen "Tape" Streifen */
         .tape {
             position: absolute;
-            background-color: #111;
+            background-color: rgba(20, 20, 20, 0.9);
             width: 80px;
             height: 25px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.5);
             z-index: 10;
         }
-
-        .tape-top-left {
-            top: -15px;
-            left: -25px;
-            transform: rotate(-45deg);
-        }
-
-        .tape-bottom-right {
-            bottom: -15px;
-            right: -25px;
-            transform: rotate(-45deg);
-        }
+        .tape-top-left { top: -15px; left: -25px; transform: rotate(-45deg); }
+        .tape-bottom-right { bottom: -15px; right: -25px; transform: rotate(-45deg); }
 
         /* --- Responsive Design --- */
         @media (max-width: 768px) {
@@ -129,6 +176,7 @@
             .hero h1 { font-size: 3rem; }
             .slider-container { flex-direction: column; }
             .slider-btn { transform: rotate(90deg); margin: 1rem 0; }
+            .story-section { padding: 1.5rem; margin: 0 1rem; }
             .story-section h2 { font-size: 2.5rem; }
             .story-image { border-width: 8px; }
             .tape { width: 50px; height: 15px; }
@@ -165,20 +213,20 @@
 
         <section class="product-grid">
             <div class="product-card">
-                <span class="product-id">P1</span><div class="badge">Sold Out</div>
-                <div class="product-image" style="background-image: url('https://placehold.co/400x400/2b317c/ffffff?text=TSHIRT+1');"></div>
+                <span class="product-id">P1</span><div class="badge" style="background-color: #ff33aa; color: white;">Sold Out</div>
+                <div class="product-image" style="background-image: url('https://placehold.co/400x400/transparent/ffffff?text=TSHIRT+1');"></div>
             </div>
             <div class="product-card">
-                <span class="product-id">P2</span><div class="badge">Sold Out</div>
-                <div class="product-image" style="background-image: url('https://placehold.co/400x400/2b317c/ffffff?text=TSHIRT+2');"></div>
+                <span class="product-id">P2</span><div class="badge" style="background-color: #ff33aa; color: white;">Sold Out</div>
+                <div class="product-image" style="background-image: url('https://placehold.co/400x400/transparent/ffffff?text=TSHIRT+2');"></div>
             </div>
             <div class="product-card">
                 <span class="product-id">P3</span><div class="badge">New Arrivals</div>
-                <div class="product-image" style="background-image: url('https://placehold.co/400x400/2b317c/ffffff?text=PULLOVER+1');"></div>
+                <div class="product-image" style="background-image: url('https://placehold.co/400x400/transparent/ffffff?text=PULLOVER+1');"></div>
             </div>
             <div class="product-card">
                 <span class="product-id">P4</span><div class="badge">Last Chance</div>
-                <div class="product-image" style="background-image: url('https://placehold.co/400x400/2b317c/ffffff?text=TSHIRT+3');"></div>
+                <div class="product-image" style="background-image: url('https://placehold.co/400x400/transparent/ffffff?text=TSHIRT+3');"></div>
             </div>
         </section>
     </div>
@@ -195,7 +243,7 @@
             <div class="slider-card">
                 <span class="product-id" id="slider-id">P1</span>
                 <div class="badge" id="slider-badge">Core Collection</div>
-                <div class="product-image" id="slider-img" style="background-image: url('https://placehold.co/600x600/2b317c/ffffff?text=TSHIRT+1');"></div>
+                <div class="product-image" id="slider-img" style="background-image: url('https://placehold.co/600x600/transparent/ffffff?text=TSHIRT+1');"></div>
             </div>
 
             <button class="slider-btn" onclick="nextSlide()">&#9654;</button>
@@ -219,7 +267,7 @@
 
                 <h2 style="margin-top: 3rem;">Our Vision</h2>
                 <p style="font-style: italic; font-weight: bold; color: #ffffff;">
-                    “You are the light of the world. A town built on a hill cannot be hidden.” <span style="font-weight: normal; font-size: 0.9rem; color: #aeb2d8;">(Matthew 5:14)</span>
+                    “You are the light of the world. A town built on a hill cannot be hidden.” <span style="font-weight: normal; font-size: 0.9rem; color: #8892b0;">(Matthew 5:14)</span>
                 </p>
                 <p>
                     This thought forms the foundation of WEARELUMINA. We are not about building an exclusive Christian brand, but rather giving this profound message a tangible expression. Our vision is to remind people of how valuable they are and that they are destined to be a light in a often broken civilization.
@@ -279,9 +327,9 @@
 
         // --- Slider Logic ---
         const products = [
-            { id: "P1", badge: "Core Collection", img: "https://placehold.co/600x600/2b317c/ffffff?text=TSHIRT+1" },
-            { id: "P2", badge: "Summer Drop", img: "https://placehold.co/600x600/2b317c/ffffff?text=TSHIRT+2" },
-            { id: "P3", badge: "Winter Edit", img: "https://placehold.co/600x600/2b317c/ffffff?text=PULLOVER+1" }
+            { id: "P1", badge: "Core Collection", img: "https://placehold.co/600x600/transparent/ffffff?text=TSHIRT+1" },
+            { id: "P2", badge: "Summer Drop", img: "https://placehold.co/600x600/transparent/ffffff?text=TSHIRT+2" },
+            { id: "P3", badge: "Winter Edit", img: "https://placehold.co/600x600/transparent/ffffff?text=PULLOVER+1" }
         ];
 
         let currentIndex = 0;
